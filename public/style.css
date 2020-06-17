@@ -1,3 +1,52 @@
 * {
+    box-sizing: border-box;
+}
+body{
+    margin: 0 auto;
+  }
+#ticker-container {
+    background: tomato;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.ticker {
+    height: 150%;
+    color: #fafafa;
+    white-space: nowrap;
+    display: inline-block;
+    font-family: 'Sriracha', cursive;
+    text-transform: uppercase;
+}
+h1, h2 {
+    text-align: center;
     font-family: 'Sriracha', cursive;
 }
+#img-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#img {
+    height: 500px;
+    width: 600px;
+    border: 3px solid white;
+}
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#first-name, #last-name, #signature {
+    height: 50px;
+    width: 200px;
+    border: 3px solid tomato;
+}
+canvas {
+    height: 50px;
+    width: 200px;
+    border: 3px solid tomato;
+
+}
+
+
