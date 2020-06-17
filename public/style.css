@@ -3,11 +3,13 @@
 }
 body{
     margin: 0 auto;
+    background-color: black;
 }
 
 h1, h2 {
     text-align: center;
     font-family: 'Sriracha', cursive;
+    color: white;
 }
 #img-div {
     display: flex;
@@ -19,20 +21,58 @@ h1, h2 {
     width: 600px;
     border: 3px solid white;
 }
-.inputs {
+#user-input {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 5px;
 }
+#user-sig {
+    position: relative;
+    margin: 5px;
+    width: 300px;
+    
+}
+#name, #lastName {
+    position: relative;
+    height: 100px;
+    width: 200px;
+    margin: 5px;
+}
+
 #first-name, #last-name, #signature {
     height: 50px;
     width: 200px;
     border: 3px solid tomato;
+    position: absolute;
+    padding: 5px;
+}
+.description {
+    position: absolute;
+    margin-top: -25px;
+    font-family: 'Sriracha', cursive;
+    color: white;
 }
 canvas {
     height: 50px;
     width: 200px;
     border: 3px solid tomato;
+    color: white;
+}
+#canva-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.signature {
+    width: 300px;
+    color: white;
+}
+button {
+    border-radius: 12px;
+    width: 60px;
+    height: 50px;
 }
 
 @keyframes ticker {
@@ -72,6 +112,7 @@ canvas {
   .ul li {
     line-height: 50px;
     list-style: none;
+    
   }
   #ticker-container {
     background: #b52e19;
@@ -118,7 +159,8 @@ canvas {
     margin-left: 160px;
     color: #fff;
     text-decoration: none;
-    font: 28px Raleway, 'Sriracha', cursive;
+    font: 28px;
+    font-family: 'Sriracha', cursive;
     vertical-align: -webkit-baseline-middle;
     vertical-align: -moz-middle-with-baseline;
     -webkit-font-smoothing: antialiased;
@@ -126,9 +168,12 @@ canvas {
 }
 li {
     font-size: 30px;
-    font-style: 'Sriracha', cursive;
+    font-family: 'Sriracha', cursive;
     width: 450px;
 
+}
+ul.about {
+    list-style-type: none;
 }
   
   ul:hover {

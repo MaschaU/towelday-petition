@@ -1,17 +1,16 @@
 <div id="ticker-container">
     <span><p>About a Towel</p></span>
-    <ul>
-        <li>about the most massively useful thing an interstellar hitchhiker can have</li>
-        <li>it has great practical value</li>
-        <li>you can use it to sail a miniraft down the slow heavy River Moth</li>
-        <li>you can wrap it around you for warmth as you bound across the cold moons of Jaglan Beta</li>
-        <li>you can lie on it on the brilliant marble-sanded beaches of Santraginus V</li>
-        <li>you can sleep under it beneath the stars</li>
-        <li>you can wrap it round your head to ward off noxious fumes</li>
-        <li>you can wrap it round your head to avoid the gaze of the Ravenous Bugblatter Beast of Traal </li>
-        <li>you can wave your towel in emergencies as a distress signal</li>
-        <li>you can dry yourself off with it if it still seems to be clean enough</li>
-
+    <ul class="about">
+        <li>Massively useful thing</li>
+        <li>It has great practical value</li>
+        <li>Use it to sail a miniraft</li>
+        <li>Wrap it around you</li>
+        <li>Lie on it</li>
+        <li>Sleep under it</li>
+        <li>Wrap it around your head</li>
+        <li>Dry yourself off with it</li>
+        <li>Wet it for hand-to-hand-combat</li>
+        <li>Immense psychological value</li>
     </ul>
     <div class="ticker"></div>
 </div>
@@ -20,16 +19,19 @@
 <img id="img" src="https://i.imgur.com/3ruZYxq.jpg" alt="towel-day" width="500" height="600">
 </div>
 <h2>Sign here!</h2>
-<form method="POST">
-    <input type="text" id="first-name">Name</input>
-    <input type="text" id="last-name">Last Name</input>
+<form method="POST" id="user-input">
+    <div id="name"><input type="text" id="first-name"><p class="description">Name</p></input></div>
+    <div id="lastName"><input type="text" id="last-name"><p class="description">Last Name</p></input></div>
     <input type="hidden" name="sig" id="sig">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <div>
-        <p>Signature</p>
-      <canvas class="signature" name="canvas"></canvas>
+</form>
+<div id="canva-div">
+    <div id="user-sig">
+        <p class="description">Signature</p>
+        <canvas class="signature" name="canvas"></canvas>
     </div>
     <div>
       <button class="button">Submit</button>
     </div>
+</div>
 </form>

@@ -4,7 +4,7 @@
     const paintCanvas = document.querySelector(".signature");
     const context = paintCanvas.getContext( '2d' );
     context.lineCap = 'round';
-    context.strokeStyle = "#000000";
+    context.strokeStyle = "#FFFFFF";
     context.lineWidth = 10;
 
     const sig = document.getElementById("sig");

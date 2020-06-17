@@ -6,6 +6,8 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //fro securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 
+
+
 //handlebars setup
 app.engine("handlebars", handlebars());
 app.set("view engine", "handlebars");
