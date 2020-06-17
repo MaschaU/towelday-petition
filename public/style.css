@@ -3,21 +3,8 @@
 }
 body{
     margin: 0 auto;
-  }
-#ticker-container {
-    background: tomato;
-    width: 100%;
-    overflow: hidden;
-    margin: 0 auto;
 }
-.ticker {
-    height: 150%;
-    color: #fafafa;
-    white-space: nowrap;
-    display: inline-block;
-    font-family: 'Sriracha', cursive;
-    text-transform: uppercase;
-}
+
 h1, h2 {
     text-align: center;
     font-family: 'Sriracha', cursive;
@@ -46,7 +33,110 @@ canvas {
     height: 50px;
     width: 200px;
     border: 3px solid tomato;
+}
+
+@keyframes ticker {
+    0% {
+      margin-top: -50px;
+    }
+    11% {
+      margin-top: -100px;
+    }
+    22% {
+      margin-top: -150px;
+    }
+    33% {
+      margin-top: -200px;
+    }
+    44% {
+      margin-top: -250px;
+    }
+    55% {
+      margin-top: -300px;
+    }
+    66% {
+      margin-top: -350px;
+    }
+    77% {
+      margin-top: -400px;
+    }
+    88% {
+      margin-top: -450px;
+    }
+    100% {
+      margin-top: -50px;
+    }
+  
+  }
+  
+  .ul li {
+    line-height: 50px;
+    list-style: none;
+  }
+  #ticker-container {
+    background: #b52e19;
+    box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.4),
+      0 5px 10px rgba(0, 0, 0, 0.5);
+    width: 800px;
+    height: 75px;
+    margin: 50px auto;
+    overflow: hidden;
+    border-radius: 4px;
+    padding: 3px;
+    display: flex;
+    align-content: flex-start;
+    -webkit-user-select: none;
+  }
+  
+  span {
+    color: #fff;
+    height: 58px;
+    width: 200px;
+    position: relative;
+    margin: 5px;
+    text-align: center;
+    border-radius: 4px;
+    background: #333;
+    font: 25px Raleway, 'Sriracha', cursive ;
+    vertical-align: -webkit-baseline-middle;
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ul {
+    float: left;
+    padding-left: 25px;
+    animation: ticker 25s cubic-bezier(1, 0, 0.5, 0) infinite;
+    -webkit-user-select: none;
+  }
+  
+  ul li a {
+    margin-left: 160px;
+    color: #fff;
+    text-decoration: none;
+    font: 28px Raleway, 'Sriracha', cursive;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
+    -webkit-font-smoothing: antialiased;
+    -webkit-user-select: none;
+}
+li {
+    font-size: 30px;
+    font-style: 'Sriracha', cursive;
+    width: 450px;
 
 }
+  
+  ul:hover {
+    animation-play-state: paused;
+  }
+  span:hover + ul {
+    animation-play-state: paused;
+  }
+  
 
 

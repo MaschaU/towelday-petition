@@ -5,6 +5,7 @@
     const context = paintCanvas.getContext( '2d' );
     context.lineCap = 'round';
     context.strokeStyle = "#000000";
+    context.lineWidth = 10;
 
     const sig = document.getElementById("sig");
 
@@ -30,8 +31,13 @@
         }
     };
 
-    paintCanvas.addEventListener( 'mousedown', startDrawing );
-    paintCanvas.addEventListener( 'mousemove', drawLine );
-    paintCanvas.addEventListener( 'mouseup', stopDrawing);
-    paintCanvas.addEventListener( 'mouseout', stopDrawing );
+    paintCanvas.addEventListener( "mousedown", startDrawing );
+    paintCanvas.addEventListener( "mousemove", drawLine );
+    paintCanvas.addEventListener( "mouseup", stopDrawing);
+    paintCanvas.addEventListener( "mouseout", stopDrawing );
+
+    /*paintCanvas.addEventListener("touchstart", startDrawing);
+    paintCanvas.addEventListener("touchmove", drawLine);
+    paintCanvas.addEventListener("touchend", stopDrawing);
+    paintCanvas.addEventListener("touchcancel", stopDrawing);*/
 }());
