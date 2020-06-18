@@ -8,8 +8,9 @@ const csurf = require('csurf'); //protecting against CSRF
 //const {hash, compare} = require("./bc.js");
 
 
-//h1 animation
 
+//h1 animation
+//TweenLite.to("h1", 1, {x:500});
 
 
 //handlebars setup
@@ -69,10 +70,10 @@ app.get("/petition", (req, res) => {
 //petition POST request
 app.post("/petition", (req, res) => {
     // check for both input fields
-    console.log("firstName is:", req.firstName);
-    if (req.firstName != "true" || req.lastName != "true") {
+    console.log(req.body);
+    if (req.body.firstName != "true" || req.body.lastName != "true") {
         pool.query(
-            "INSERT INTO signatures(first_name, last_name, signature_image) VALUES(request.user.body.firstName, request.user.body.lastName, request.body.user.)",
+            `INSERT INTO signatures(first_name, last_name, signature_image) VALUES($1, $2, $3)`,
             (err, res) => {
                 console.log(err, res);
                 pool.end();
@@ -80,7 +81,7 @@ app.post("/petition", (req, res) => {
         );
         res.redirect("/thanks");
     } else {
-        res.send(`<h1>Please submit your data<h1>`);
+        res.send(`<h1>Oooops! Something went wrong. Try again and this time submit all the data<h1>`);
     }
 });
 

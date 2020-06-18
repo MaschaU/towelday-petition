@@ -5,7 +5,7 @@
     const context = paintCanvas.getContext( '2d' );
     context.lineCap = 'round';
     context.strokeStyle = "#FFFFFF";
-    context.lineWidth = 10;
+    context.lineWidth = 5;
 
     const sig = document.getElementById("sig");
 

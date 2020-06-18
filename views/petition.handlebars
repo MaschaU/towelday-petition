@@ -1,3 +1,4 @@
+
 <div id="ticker-container">
     <span><p>About a Towel</p></span>
     <ul class="about">
@@ -15,23 +16,22 @@
     <div class="ticker"></div>
 </div>
 <h1>Make 25th May a national holiday!</h1>
-<div id="img-div">
-<img id="img" src="https://i.imgur.com/3ruZYxq.jpg" alt="towel-day" width="500" height="600">
-</div>
 <h2>Sign here!</h2>
-<form method="POST" id="userInput">
-    <div id="name"><input type="text" id="firstName"><p class="description">Name</p></input></div>
-    <div id="lastName"><input type="text" id="lastName"><p class="description">Last Name</p></input></div>
-    <input type="hidden" name="sig" id="sig">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}"> <!--copy in the every hb with forms-->
-</form>
-<div id="canva-div">
-    <div id="user-sig">
-        <p class="description">Signature</p>
-        <canvas class="signature" name="canvas"></canvas>
+<form method="POST" id="userInput" action="/petition">
+    <div id="column1">
+        <div id="name"><input type="text" id="firstName"><p class="description">Name</p></input></div>
+        <div id="divLastName"><input type="text" id="lastName"><p class="description">Last Name</p></input></div>
+        <input type="hidden" name="sig" id="sig">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}"> <!--copy in the every hb with forms-->
     </div>
-    <div>
-      <button class="button">Submit</button>
+    <div id="column2">
+        <div id="canva-div">
+            <div id="user-sig">
+                <p id="description-sig">Signature</p>
+                <canvas id="userSig" class="signature" name="canvas"></canvas>
+            </div>
+        </div>
+        <button class="button">Submit</button>
     </div>
-</div>
+    
 </form>
