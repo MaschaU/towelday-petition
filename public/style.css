@@ -1,72 +1,77 @@
 * {
-    box-sizing: border-box;
-    
+  box-sizing: border-box;
 }
-body{
-    margin: 0 auto;
-    background-color: black;
-    background-image: url("https://i.imgur.com/tOPp4Kb.jpg");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-repeat: no-repeat;
-    background-position: center;
+
+body {
+  margin: 0 auto;
+  background-image: url("https://i.imgur.com/tOPp4Kb.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
 .body-container {
   width: 100%;
 }
 
-h1, h2 {
-    text-align: center;
-    font-family: 'Sriracha', cursive;
-    color: white;
-}
 h1 {
-  text-shadow: 0 1px 3px black;
-  font-size: 55px;
+  text-align: center;
+  font-family: 'Sriracha', cursive;
+  color: white;
+  text-shadow: 0 5px 10px black;
+  font-size: 65px;
 }
+
 a {
   font-family: 'Sriracha', cursive;
   font-size: 18px;
   color: white;
+  text-shadow: 0 5px 10px black;
 }
+
 #thanks {
   text-align: center;
 }
 
 #userInput {
-    margin-top: 310px;
-    width: 100%;
-    height: 300px;
+  margin-top: 200px;
+  width: 100%;
+  height: 300px;
 }
 
 #name, #divLastName {
-    height: 100px;
-    width: 200px;
-    margin: 5px;
-    position: relative;
+  height: 100px;
+  width: 200px;
+  margin: 5px;
+  position: relative;
 }
 
 #firstName, #lastName, #signature {
-    height: 50px;
-    width: 200px;
-    border: 3px solid tomato;
-    padding: 5px;
+  height: 50px;
+  width: 200px;
+  border: 3px solid tomato;
+  padding: 5px;
 }
+
 .description {
-    margin-top: -90px;
-    font-family: 'Sriracha', cursive;
-    color: white;
-    position: absolute;
-    font-size: 25px;
+  margin-top: -90px;
+  font-family: 'Sriracha', cursive;
+  color: white;
+  text-shadow: 0 5px 10px black;
+  position: absolute;
+  font-size: 25px;
 }
+
 canvas {
-    height: 50px;
-    width: 400px;
-    border: 3px solid tomato;
-    color: white;
+  height: 50px;
+  width: 400px;
+  border: 3px solid tomato;
+  color: white;
 
 }
+
 #canva-div {
   height: 100px;
   width: 398px;
@@ -74,11 +79,13 @@ canvas {
   background-color: rgba(255,255,255, 0.2);
 
 }
+
 #user-sig, #userSig {
   height: 100px;
   width: 400px;
   margin-top: 3px;
 }
+
 #description-sig {
   position: absolute;
   margin-top: -40px;
@@ -86,137 +93,141 @@ canvas {
   color: white;
   font-size: 25px;
 }
+
 #column1 {
   float: left;
   width: 390px;
   margin-left: 20px;
 }
+
 #column2 {
   float:right;
   width: 390px;
   margin-right: 25px;
 }
-button {
-    border-radius: 12px;
-    width: 150px;
-    height: 50px;
-    background-color: #b52e19;
-    color: black;
-    border: 2px solid black;
-    font-size: 25px;
-    font-family: 'Sriracha', cursive;
-    margin-top: 34px;
-    margin-left: 240px;
 
+button {
+  border-radius: 12px;
+  width: 150px;
+  height: 50px;
+  background-color: #b52e19;
+  color: black;
+  border: 2px solid black;
+  font-size: 25px;
+  font-family: 'Sriracha', cursive;
+  margin-top: 34px;
+  margin-left: 240px;
 }
 
 @keyframes ticker {
-    0% {
-      margin-top: -45px;
-    }
-    11% {
-      margin-top: -100px;
-    }
-    22% {
-      margin-top: -155px;
-    }
-    33% {
-      margin-top: -205px;
-    }
-    44% {
-      margin-top: -255px;
-    }
-    55% {
-      margin-top: -310px;
-    }
-    66% {
-      margin-top: -370px;
-    }
-    77% {
-      margin-top: -420px;
-    }
-    88% {
-      margin-top: -480px;
-    }
-    100% {
-      margin-top: -25px;
-    }
-  
+  0% {
+    margin-top: -45px;
+  }
+  11% {
+    margin-top: -100px;
+  }
+  22% {
+    margin-top: -155px;
+  }
+  33% {
+    margin-top: -205px;
+  }
+  44% {
+    margin-top: -255px;
+  }
+  55% {
+    margin-top: -310px;
+  }
+  66% {
+    margin-top: -370px;
+  }
+  77% {
+    margin-top: -420px;
+  }
+  88% {
+    margin-top: -480px;
+  }
+  100% {
+    margin-top: -25px;
   }
   
-  .ul li {
-    line-height: 50px;
-    list-style: none;
-    
-  }
-  #ticker-container {
-    background: #b52e19;
-    box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.4),
-      0 5px 10px rgba(0, 0, 0, 0.5);
-    width: 800px;
-    height: 75px;
-    margin: 50px auto;
-    overflow: hidden;
-    border-radius: 4px;
-    padding: 3px;
-    display: flex;
-    align-content: flex-start;
-    -webkit-user-select: none;
-  }
-  
-  span {
-    color: #fff;
-    height: 58px;
-    width: 200px;
-    position: relative;
-    margin: 5px;
-    text-align: center;
-    border-radius: 4px;
-    background: #333;
-    font: 25px Raleway, 'Sriracha', cursive ;
-    vertical-align: -webkit-baseline-middle;
-    -webkit-font-smoothing: antialiased;
-    -webkit-user-select: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  ul {
-    float: left;
-    padding-left: 25px;
-    animation: ticker 25s cubic-bezier(1, 0, 0.5, 0) infinite;
-    -webkit-user-select: none;
-  }
-  
-  ul li a {
-    margin-left: 160px;
-    color: #fff;
-    text-decoration: none;
-    font: 28px;
-    font-family: 'Sriracha', cursive;
-    vertical-align: -webkit-baseline-middle;
-    vertical-align: -moz-middle-with-baseline;
-    -webkit-font-smoothing: antialiased;
-    -webkit-user-select: none;
 }
-li {
-    font-size: 30px;
-    font-family: 'Sriracha', cursive;
-    width: 450px;
+  
+.ul li {
+  line-height: 50px;
+  list-style: none;
+}
 
-}
-ul.about {
-    list-style-type: none;
+#ticker-container {
+  background: #b52e19;
+  box-shadow: inset 0 -15px 30px rgba(0, 0, 0, 0.4),
+              0 5px 10px rgba(0, 0, 0, 0.5);
+  width: 800px;
+  height: 75px;
+  margin: 50px auto;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 3px;
+  display: flex;
+  align-content: flex-start;
+  -webkit-user-select: none;
 }
   
-  ul:hover {
-    animation-play-state: paused;
-  }
-  span:hover + ul {
-    animation-play-state: paused;
-  }
+span {
+  color: #fff;
+  height: 58px;
+  width: 200px;
+  position: relative;
+  margin: 5px;
+  text-align: center;
+  border-radius: 4px;
+  background: #333;
+  font: 25px Raleway, 'Sriracha', cursive ;
+  vertical-align: -webkit-baseline-middle;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+ul {
+  float: left;
+  padding-left: 25px;
+  animation: ticker 25s cubic-bezier(1, 0, 0.5, 0) infinite;
+  -webkit-user-select: none;
+}
+  
+ul li a {
+  margin-left: 160px;
+  color: white;
+  text-decoration: none;
+  font: 28px;
+  font-family: 'Sriracha', cursive;
+  vertical-align: -webkit-baseline-middle;
+  vertical-align: -moz-middle-with-baseline;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+}
+
+li {
+  font-size: 30px;
+  font-family: 'Sriracha', cursive;
+  width: 450px;
+}
+
+ul.about {
+  list-style-type: none;
+}
+  
+ul:hover {
+  animation-play-state: paused;
+}
+
+span:hover + ul {
+  animation-play-state: paused;
+}
   
 
 

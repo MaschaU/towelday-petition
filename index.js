@@ -55,8 +55,6 @@ const pool = new Pool({
 });
 
 
-
-
 //SETTING UP ROUTES//
 //petition GET request
 app.get("/", (req,res)=> {
