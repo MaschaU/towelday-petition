@@ -11,6 +11,12 @@ h1, h2 {
     font-family: 'Sriracha', cursive;
     color: white;
 }
+a {
+  font-family: 'Sriracha', cursive;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+}
 #img-div {
     display: flex;
     align-items: center;
@@ -21,7 +27,7 @@ h1, h2 {
     width: 600px;
     border: 3px solid white;
 }
-#user-input {
+#userInput {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,7 +37,6 @@ h1, h2 {
     position: relative;
     margin: 5px;
     width: 300px;
-    
 }
 #name, #lastName {
     position: relative;
@@ -40,7 +45,7 @@ h1, h2 {
     margin: 5px;
 }
 
-#first-name, #last-name, #signature {
+#firstName, #lastName, #signature {
     height: 50px;
     width: 200px;
     border: 3px solid tomato;
@@ -77,34 +82,34 @@ button {
 
 @keyframes ticker {
     0% {
-      margin-top: -50px;
+      margin-top: -45px;
     }
     11% {
       margin-top: -100px;
     }
     22% {
-      margin-top: -150px;
+      margin-top: -155px;
     }
     33% {
-      margin-top: -200px;
+      margin-top: -205px;
     }
     44% {
-      margin-top: -250px;
+      margin-top: -255px;
     }
     55% {
-      margin-top: -300px;
+      margin-top: -310px;
     }
     66% {
-      margin-top: -350px;
+      margin-top: -370px;
     }
     77% {
-      margin-top: -400px;
+      margin-top: -420px;
     }
     88% {
-      margin-top: -450px;
+      margin-top: -480px;
     }
     100% {
-      margin-top: -50px;
+      margin-top: -25px;
     }
   
   }
