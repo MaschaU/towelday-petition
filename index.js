@@ -5,7 +5,8 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session"); //protecting against changing cookies
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
-//const {hash, compare} = require("./bc.js");
+const {hash, compare} = require("./bc.js");
+const { addSigner } = require("./db.js");
 
 
 
@@ -43,19 +44,8 @@ app.use(function(req, res, next) {
     next();
 });   
 
-//postgress pool connection for node.js
-const { Pool, Client } = require("pg");
-
-const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "test",
-    password: "postgres",
-    port: "5432"
-});
-
-
 //SETTING UP ROUTES//
+
 //petition GET request
 app.get("/", (req,res)=> {
     res.render("petition", {});
@@ -67,33 +57,45 @@ app.get("/petition", (req, res) => {
 
 //petition POST request
 app.post("/petition", (req, res) => {
-    // check for both input fields
-    console.log(req.body);
-    if (req.body.firstName != "true" || req.body.lastName != "true") {
-        pool.query(
-            `INSERT INTO signatures(first_name, last_name, signature_image) VALUES($1, $2, $3)`,
-            (err, res) => {
-                console.log(err, res);
-                pool.end();
-            }
-        );
-        res.redirect("/thanks");
+    console.log(req.body.firstname);
+    if (req.body.firstname && req.body.lastname && req.body.sig) {
+        console.log("I'm inside of if statement");
+        
+        addSigner(req.body.firstname, req.body.lastname, req.body.sig)
+            .then((result) => {
+                console.log("Something is working!Woop!Woop!");
+                const { id, permission } = req.session;
+                req.session.id = result.rows[0].user_id;
+                req.session.permission = true; 
+                if (req.session.id && req.session.permission) {
+                    res.redirect("/thanks");
+                } else {
+                    console.log("errooooorrr!!!");
+                    res.render("petition", { error: true });
+                }
+                
+            })
+            .catch((error) => {
+                res.render("petition", { error: true });
+                console.log("errooooorrrr on addSigner ", error);
+            });
     } else {
-        res.send(`<h1>Oooops! Something went wrong. Try again and this time submit all the data<h1>`);
+        res.render("petition", { error: true });
     }
 });
 
+//GET request for /thanks layout:
+//app.get("/thanks", (req, res) => {
+// if (req.session.id) {
+
+// }
+//});
 
 
-// GET request for /thanks layout:
-app.get("/thanks", (req, res) => {
-    res.render("thanks", {});
-});
-
-// GET request for /petitioners layout:
-app.get("/petitioners", (req, res) => {
-    res.render("petitioners", {});
-});
+//GET request for /petitioners layout:
+//app.get("/petitioners", (req, res) => {
+//    res.render("petitioners", {});
+//});
 
 //register
 //app.post("/register", (req,res)=>{

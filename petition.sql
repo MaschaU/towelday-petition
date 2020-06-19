@@ -1,8 +1,10 @@
+DROP TABLE IF EXISTS signatures;
+
 CREATE TABLE signatures (
-    user_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL CHECK (first_name != ''),
-    last_name VARCHAR(50) NOT NULL CHECK (last_name != ''),
-    signature_image TEXT NOT NULL CHECK (signature_image != ''),
+   user_id SERIAL PRIMARY KEY,
+    firstname VARCHAR(50) NOT NULL CHECK (firstname != ''),
+    lastname VARCHAR(50) NOT NULL CHECK (lastname != ''),
+    sig TEXT NOT NULL CHECK (sig != ''),
     created_at TIMESTAMP DEFAULT(CURRENT_TIMESTAMP)
 );
 
@@ -15,3 +17,5 @@ CREATE TABLE signatures (
 --    password VARCHAR(100) NOT NULL,
 --      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --);
+
+SELECT * FROM signatures;

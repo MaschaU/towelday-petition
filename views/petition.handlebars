@@ -1,4 +1,6 @@
-
+{{#if error}}
+  <div class="error">Something went wrong! Try again!</div>
+{{/if}}
 <div id="ticker-container">
     <span><p>About a Towel</p></span>
     <ul class="about">
@@ -19,8 +21,8 @@
 <h1>Sign here!</h1>
 <form method="POST" id="userInput" action="/petition">
     <div id="column1">
-        <div id="name"><input type="text" id="firstName"><p class="description">Name</p></input></div>
-        <div id="divLastName"><input type="text" id="lastName"><p class="description">Last Name</p></input></div>
+        <div id="name"><input type="text" id="firstName" name="firstname"><p class="description">Name</p></input></div>
+        <div id="divLastName"><input type="text" id="lastName" name="lastname"><p class="description">Last Name</p></input></div>
         <input type="hidden" name="sig" id="sig">
         <input type="hidden" name="_csrf" value="{{csrfToken}}"> <!--copy in the every hb with forms-->
     </div>
