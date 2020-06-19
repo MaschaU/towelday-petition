@@ -46,9 +46,16 @@ app.use(function(req, res, next) {
 
 //SETTING UP ROUTES//
 
-//petition GET request
+//petition GET request, reading cookie
 app.get("/", (req,res)=> {
-    res.render("petition", {});
+    console.log(req.cookies);
+    if(req.cookies.signed != "true")
+    {
+        res.render("petition", {});
+    }
+    else {
+        res.render("./thanks");
+    }
 });
 
 app.get("/petition", (req, res) => {
@@ -57,27 +64,25 @@ app.get("/petition", (req, res) => {
 
 //petition POST request
 app.post("/petition", (req, res) => {
-    console.log(req.body.firstname);
     if (req.body.firstname && req.body.lastname && req.body.sig) {
         console.log("I'm inside of if statement");
         
         addSigner(req.body.firstname, req.body.lastname, req.body.sig)
             .then((result) => {
-                console.log("Something is working!Woop!Woop!");
+                //setting cookie
                 const { id, permission } = req.session;
                 req.session.id = result.rows[0].user_id;
                 req.session.permission = true; 
                 if (req.session.id && req.session.permission) {
+                    res.cookie("signed", "true", { });
                     res.redirect("/thanks");
                 } else {
                     console.log("errooooorrr!!!");
                     res.render("petition", { error: true });
                 }
-                
             })
             .catch((error) => {
                 res.render("petition", { error: true });
-                console.log("errooooorrrr on addSigner ", error);
             });
     } else {
         res.render("petition", { error: true });
@@ -85,11 +90,9 @@ app.post("/petition", (req, res) => {
 });
 
 //GET request for /thanks layout:
-//app.get("/thanks", (req, res) => {
-// if (req.session.id) {
-
-// }
-//});
+app.get("/thanks", (req, res) => {
+    res.render("./thanks");
+});
 
 
 //GET request for /petitioners layout:
