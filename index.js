@@ -6,7 +6,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner } = require("./db.js");
+const { addSigner, getSigners } = require("./db.js");
 
 
 
@@ -94,11 +94,24 @@ app.get("/thanks", (req, res) => {
     res.render("./thanks");
 });
 
-
 //GET request for /petitioners layout:
-//app.get("/petitioners", (req, res) => {
-//    res.render("petitioners", {});
-//});
+app.get("/petitioners", (req, res)=>{
+    getSigners().then((results)=>{
+        console.log(getSigners);
+        const petitioners = [];
+        results.rows.forEach((r)=>{
+            petitioners.push({
+                name: `${r.firstname} ${r.lastname}`
+            });
+            console.log(petitioners);
+        });
+        res.render("./petitioners", { petitioners });
+    }).catch((error)=>{
+        console.log(error);
+       
+    });
+});
+
 
 //register
 //app.post("/register", (req,res)=>{
