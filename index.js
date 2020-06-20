@@ -6,7 +6,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners } = require("./db.js");
+const { addSigner, getSigners, getMyData } = require("./db.js");
 
 
 
@@ -30,6 +30,7 @@ app.use(cookieSession({
 app.use(express.urlencoded({extended:false}));
 app.use(helmet());
 app.use(csurf());
+
 
 //avoiding click-jacking attacks
 app.use(function(req, res, next){ 
@@ -70,18 +71,10 @@ app.post("/petition", (req, res) => {
         addSigner(req.body.firstname, req.body.lastname, req.body.sig)
             .then((result) => {
                 //setting cookie
-                const { id, permission } = req.session;
-                req.session.id = result.rows[0].user_id;
-                req.session.permission = true; 
-                if (req.session.id && req.session.permission) {
-                    res.cookie("signed", "true", { });
-                    res.redirect("/thanks");
-                } else {
-                    console.log("errooooorrr!!!");
-                    res.render("petition", { error: true });
-                }
-            })
-            .catch((error) => {
+                res.cookie("signed", "true", { });
+                res.cookie("signerId", result.rows[0].user_id);
+                res.redirect("/thanks");
+            }).catch((error) => {
                 res.render("petition", { error: true });
             });
     } else {
@@ -89,10 +82,6 @@ app.post("/petition", (req, res) => {
     }
 });
 
-//GET request for /thanks layout:
-app.get("/thanks", (req, res) => {
-    res.render("./thanks");
-});
 
 //GET request for /petitioners layout:
 app.get("/petitioners", (req, res)=>{
@@ -109,6 +98,23 @@ app.get("/petitioners", (req, res)=>{
     }).catch((error)=>{
         console.log(error);
        
+    });
+});
+
+//Get route for signatures
+app.get("/thanks", (req, res)=>{
+    console.log("Second Thanks route");
+    const id = req.cookies.signerId;
+    console.log("Identitz is " + id);
+    getMyData(id).then((results)=> {
+        console.log (results.rows);
+        const firstname = results.rows[0].firstname;
+        const sig = results.rows[0].sig;
+        res.render("thanks", {firstname, sig});
+        console.log(sig);
+    }).catch((error)=>{
+        console.log("Erroooor:", error);
+        res.send(`<h1>Oooops. Something went wrong. Try and try again.</h1>`);
     });
 });
 

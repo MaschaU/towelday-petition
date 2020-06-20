@@ -132,13 +132,29 @@ button {
   font-family: 'Sriracha', cursive;
   color: white;
   text-align: center;
+  text-shadow: 0 5px 10px black;
 }
 
 #petitioners-thanks {
   font-size: 50px;
   font-family: 'Sriracha', cursive;
   color: white;
+  text-shadow: 0 5px 10px black;
 }
+
+#sig-pic {
+  margin-top: 500px;
+}
+
+#sigPic-tag {
+  font-size: 25px;
+  font-family: 'Sriracha', cursive;
+  color: white;
+  text-align: center;
+  text-shadow: 0 5px 10px black;
+  margin-top: 30px;
+}
+
 @keyframes ticker {
   0% {
     margin-top: -45px;

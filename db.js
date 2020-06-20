@@ -14,7 +14,7 @@ exports.addSigner = (firstname, lastname, sig) => {
 exports.getMyData = (user_id) => {
     return db.query(
         `SELECT firstname, lastname, sig FROM signatures
-        WHERE id = $1`,
+        WHERE user_id = $1`,
         [user_id]
     );
 };
@@ -22,4 +22,5 @@ exports.getMyData = (user_id) => {
 exports.getSigners = () => {
     return db.query(`SELECT firstname, lastname FROM signatures`);
 };
+
 
