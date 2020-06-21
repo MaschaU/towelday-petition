@@ -60,7 +60,6 @@ app.get("/registration", (req, res)=>{
 
 
 //registration POST request
-
 app.post("/registration", (req, res)=>{
     //check for matching passwords
     if(req.body.password1 != req.body.password2) {
@@ -74,7 +73,8 @@ app.post("/registration", (req, res)=>{
             res.cookie("user_id", results.rows[0].user_id);
             //attaching a user object to request.session
             req.session.user_id = results.rows[0].user_id;
-            res.render("./petition");
+            res.redirect("/petition");
+            res.end();
         }).catch((error)=>{
             console.log("Erroooor:", error);
             res.redirect("/registration");
@@ -84,19 +84,22 @@ app.post("/registration", (req, res)=>{
     }
 });
 
-//
+//login GET request
+app.get("/login", (req, res)=>{
+    res.render("./login");
+});
 
 //petition GET request, reading cookie
-//app.get("/", (req,res)=> {
-//    console.log(req.cookies);
-//    if(req.cookies.signed != "true")
-//    {
-//        res.render("petition", {});
-//    }
-//    else {
-//        thanksRoute(req,res);
-//    }
-//});
+app.get("/", (req,res)=> {
+    console.log(req.cookies);
+    if(req.cookies.signed != "true")
+    {
+        res.render("petition", {});
+    }
+    else {
+        thanksRoute(req,res);
+    }
+});
 
 function thanksRoute(req, res) {
 
@@ -118,15 +121,16 @@ function thanksRoute(req, res) {
     });
 }
 
-//app.get("/petition", (req, res) => {
-//    if(req.cookies.signed != "true")
-//    {
-//        res.render("petition", {});
-//    }
-//    else {
-//          thanksRoute(req,res);
-//    }
-//});
+//petition GET request
+app.get("/petition", (req, res) => {
+    if(req.cookies.signed != "true")
+    {
+        res.render("petition", {});
+    }
+    else {
+        thanksRoute(req,res);
+    }
+});
 
 //petition POST request
 app.post("/petition", (req, res) => {
