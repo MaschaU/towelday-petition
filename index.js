@@ -7,7 +7,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners, getMyData } = require("./db.js");
+const { addSigner, getSigners, getMyData, newUser, insertSignature, getHashedPass } = require("./db.js");
 
 
 
@@ -48,10 +48,43 @@ app.use(function(req, res, next) {
 
 //SETTING UP ROUTES//
 
-//registration GET request
+//slash GET request
 app.get("/", (req, res)=>{
-    res.render("registration");
+    res.render("./registration");
 });
+
+//registration GET request
+app.get("/registration", (req, res)=>{
+    res.render("./registration");
+});
+
+
+//registration POST request
+
+app.post("/registration", (req, res)=>{
+    //check for matching passwords
+    if(req.body.password1 != req.body.password2) {
+        const passwordError = "Check that your passwords match!";
+        res.render("registration", { passwordError});
+    } else {
+        hash(req.body.password1).then(hashedPassword => {
+            return newUser(req.body.firstname, req.body.lastname, req.body.email, hashedPassword);
+        }).then(results => {
+            //setting cookies
+            res.cookie("user_id", results.rows[0].user_id);
+            //attaching a user object to request.session
+            req.session.user_id = results.rows[0].user_id;
+            res.render("./petition");
+        }).catch((error)=>{
+            console.log("Erroooor:", error);
+            res.redirect("/registration");
+            res.render("./registration", { error: "Oooops! Try again  but this time, give us all your data!" });
+            
+        });
+    }
+});
+
+//
 
 //petition GET request, reading cookie
 //app.get("/", (req,res)=> {

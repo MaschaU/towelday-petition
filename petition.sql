@@ -9,12 +9,14 @@ CREATE TABLE signatures (
 );
 
 
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
     user_id SERIAL primary key,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    user_password VARCHAR(100) NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

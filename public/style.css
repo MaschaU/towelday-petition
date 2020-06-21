@@ -119,7 +119,7 @@ button {
   font-size: 25px;
   font-family: 'Sriracha', cursive;
   margin-top: 34px;
-  margin-left: 240px;
+  margin-left: 0;
 }
 
 #thanks {
@@ -179,6 +179,10 @@ form {
   font-size: 25px;
   font-family: 'Sriracha', cursive;
   color: white;
+}
+
+#regbutton {
+  margin-left: 0;
 }
 
 @keyframes ticker {

@@ -1,0 +1,27 @@
+<div id="reg-container">
+<div id="ticker-container">
+    <span><p>About a Towel</p></span>
+    <ul class="about">
+        <li>Massively useful thing</li>
+        <li>It has great practical value</li>
+        <li>Use it to sail a miniraft</li>
+        <li>Wrap it around you</li>
+        <li>Lie on it</li>
+        <li>Sleep under it</li>
+        <li>Wrap it around your head</li>
+        <li>Dry yourself off with it</li>
+        <li>Wet it for hand-to-hand-combat</li>
+        <li>Immense psychological value</li>
+    </ul>
+    <div class="ticker"></div>
+</div>
+<h1>Make 25th May a national holiday!</h1>
+<form method="POST" action="/registration">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!csrf protection--}}
+    <div class="error">{{error}}</div>
+    <input type="text" name="email" class="info-reg" placeholder="Email" required>
+    <input type="password" name="password" class="info-reg" placeholder="Password" required>
+    <button class="button-login">Log in!</button>
+</form>
+<a id="reg-link" href="/login">Already a supporter? Jump to login!</a>
+</div>
