@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');
+const spicedPg = require("spiced-pg");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session"); //protecting against changing cookies
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
@@ -48,6 +49,7 @@ app.use(function(req, res, next) {
 //SETTING UP ROUTES//
 
 //petition GET request, reading cookie
+
 app.get("/", (req,res)=> {
     console.log(req.cookies);
     if(req.cookies.signed != "true")
@@ -55,12 +57,38 @@ app.get("/", (req,res)=> {
         res.render("petition", {});
     }
     else {
-        res.render("./thanks");
+        thanksRoute(req,res);
     }
 });
 
+function thanksRoute(req, res) {
+
+    // This code is broken out from the /thanks route because it's also needed
+    // for the root and petition routes if the user has already signed
+
+    console.log("Second Thanks route");
+    const id = req.cookies.signerId;
+    console.log("Identitz is " + id);
+    getMyData(id).then((results)=> {
+        console.log (results.rows);
+        const firstname = results.rows[0].firstname;
+        const sig = results.rows[0].sig;
+        res.render("thanks", {firstname, sig});
+        console.log(sig);
+    }).catch((error)=>{
+        console.log("Erroooor:", error);
+        res.send(`<h1>Oooops. Something went wrong. Try and try again.</h1>`);
+    });
+}
+
 app.get("/petition", (req, res) => {
-    res.render("petition", {});
+    if(req.cookies.signed != "true")
+    {
+        res.render("petition", {});
+    }
+    else {
+        thanksRoute(req,res);
+    }
 });
 
 //petition POST request
@@ -103,19 +131,7 @@ app.get("/petitioners", (req, res)=>{
 
 //Get route for signatures
 app.get("/thanks", (req, res)=>{
-    console.log("Second Thanks route");
-    const id = req.cookies.signerId;
-    console.log("Identitz is " + id);
-    getMyData(id).then((results)=> {
-        console.log (results.rows);
-        const firstname = results.rows[0].firstname;
-        const sig = results.rows[0].sig;
-        res.render("thanks", {firstname, sig});
-        console.log(sig);
-    }).catch((error)=>{
-        console.log("Erroooor:", error);
-        res.send(`<h1>Oooops. Something went wrong. Try and try again.</h1>`);
-    });
+    thanksRoute(req, res);
 });
 
 
