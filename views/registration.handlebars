@@ -18,11 +18,11 @@
 <h1>Make 25th May a national holiday!</h1>
 <form method="POST" action="/registration">
     <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!csrf protection--}}
-    <input type="text" name="firstname" id="firstName-reg" placeholder="First Name" required>
-    <input type="text" name="lastname" id="lastName-reg" placeholder="Last Name" required>
-    <input type="text" name="email" id="email" placeholder="Email" required>
-    <input type="password" name="password1" placeholder="Password" required>
-    <input type="password" name="password2" placeholder="And again" required>
+    <input type="text" name="firstname" class="info-reg" placeholder="First Name" required>
+    <input type="text" name="lastname" class="info-reg" placeholder="Last Name" required>
+    <input type="text" name="email" class="info-reg" placeholder="Email" required>
+    <input type="password" name="password1" class="info-reg" placeholder="Password" required>
+    <input type="password" name="password2" class="info-reg" placeholder="And again" required>
 </form>
-<a href="/login">Already a supporter? Jump to login!</a>
+<a id="reg-link" href="/login">Already a supporter? Jump to login!</a>
 </div>

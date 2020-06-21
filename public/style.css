@@ -163,6 +163,24 @@ button {
   margin-top: 25px;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-reg {
+  height: 75px;
+  width: 300px;
+  border: 3px solid #b52e19;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  background: transparent;
+  font-size: 25px;
+  font-family: 'Sriracha', cursive;
+  color: white;
+}
+
 @keyframes ticker {
   0% {
     margin-top: -45px;
