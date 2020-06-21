@@ -48,18 +48,22 @@ app.use(function(req, res, next) {
 
 //SETTING UP ROUTES//
 
-//petition GET request, reading cookie
-
-app.get("/", (req,res)=> {
-    console.log(req.cookies);
-    if(req.cookies.signed != "true")
-    {
-        res.render("petition", {});
-    }
-    else {
-        thanksRoute(req,res);
-    }
+//registration GET request
+app.get("/", (req, res)=>{
+    res.render("registration");
 });
+
+//petition GET request, reading cookie
+//app.get("/", (req,res)=> {
+//    console.log(req.cookies);
+//    if(req.cookies.signed != "true")
+//    {
+//        res.render("petition", {});
+//    }
+//    else {
+//        thanksRoute(req,res);
+//    }
+//});
 
 function thanksRoute(req, res) {
 
@@ -81,15 +85,15 @@ function thanksRoute(req, res) {
     });
 }
 
-app.get("/petition", (req, res) => {
-    if(req.cookies.signed != "true")
-    {
-        res.render("petition", {});
-    }
-    else {
-        thanksRoute(req,res);
-    }
-});
+//app.get("/petition", (req, res) => {
+//    if(req.cookies.signed != "true")
+//    {
+//        res.render("petition", {});
+//    }
+//    else {
+//          thanksRoute(req,res);
+//    }
+//});
 
 //petition POST request
 app.post("/petition", (req, res) => {
@@ -100,7 +104,7 @@ app.post("/petition", (req, res) => {
             .then((result) => {
                 //setting cookie
                 res.cookie("signed", "true", { });
-                res.cookie("signerId", result.rows[0].user_id);
+                res.cookie("signerId", result.rows[0].signature_id);
                 res.redirect("/thanks");
             }).catch((error) => {
                 res.render("petition", { error: true });
