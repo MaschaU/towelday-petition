@@ -10,11 +10,6 @@ const {hash, compare} = require("./bc.js");
 const { addSigner, getSigners, getMyData, newUser, insertSignature, getHashedPass } = require("./db.js");
 
 
-
-//h1 animation
-//TweenLite.to("h1", 1, {x:500});
-
-
 //handlebars setup
 app.engine("handlebars", handlebars());
 app.set("view engine", "handlebars");
@@ -22,32 +17,25 @@ app.set("view engine", "handlebars");
 //MIDDLEWARE
 app.use(express.static("./public"));
 app.use(express.static(__dirname));
-
 app.use(cookieParser());
 app.use(cookieSession({
     secret: `I'm always angry`,
     maxAge: 1000 * 60 *60 *24 * 14
 }));
-
 app.use(express.urlencoded({extended:false}));
 app.use(helmet());
 app.use(csurf());
-
-
-//avoiding click-jacking attacks
-app.use(function(req, res, next){ 
+app.use(function(req, res, next){ //avoiding click-jacking attacks
     res.setHeader("x-frame-options", "deny");
     res.locals.csrfToken = req.csrfToken();
     next();
 }); 
-
-//CSRF setup
-app.use(function(req, res, next) {
+app.use(function(req, res, next) { //CSRF setup
     res.locals.csrfToken = req.csrfToken();
     next();
 });   
 
-//SETTING UP ROUTES//
+/////SETTING UP ROUTES/////
 
 //slash GET request
 app.get("/", (req, res)=>{
@@ -56,16 +44,20 @@ app.get("/", (req, res)=>{
 
 //registration GET request
 app.get("/registration", (req, res)=>{
-    res.render("./registration");
+    const {user_id} = req.session;
+    if (user_id) {
+        res.redirect("/thanks");
+    } else {
+        res.render("registration");
+    } 
 });
-
 
 //registration POST request
 app.post("/registration", (req, res)=>{
     //check for matching passwords
     if(req.body.password1 != req.body.password2) {
         const passwordError = "Check that your passwords match!";
-        res.render("registration", { passwordError});
+        res.render("registration", { passwordError}); //after inputing all the data, it renders the same form with /petition in URL???
     } else {
         hash(req.body.password1).then(hashedPassword => {
             return newUser(req.body.firstname, req.body.lastname, req.body.email, hashedPassword);
@@ -74,7 +66,7 @@ app.post("/registration", (req, res)=>{
             res.cookie("user_id", results.rows[0].user_id);
             //attaching a user object to request.session
             req.session.user_id = results.rows[0].user_id;
-            res.redirect("/petition");
+            res.redirect("/login");
             res.end();
         }).catch((error)=>{
             console.log("Erroooor:", error);
@@ -87,26 +79,45 @@ app.post("/registration", (req, res)=>{
 
 //login GET request
 app.get("/login", (req, res)=>{
-    res.render("./login");
+    res.render("login");
 });
 
-//petition GET request, reading cookie
-app.get("/", (req,res)=> {
-    console.log(req.cookies);
-    if(req.cookies.signed != "true")
-    {
+//login POST request
+
+app.post("/login", (req, res)=>{
+
+});
+
+//petition GET request
+
+app.get("/petition", (req, res) => {
+    const { userId } = req.session;
+    if (!userId) {
+        res.render("registration", {});
+    } else {
         res.render("petition", {});
     }
-    else {
-        thanksRoute(req,res);
-    }
 });
 
-function thanksRoute(req, res) {
+//petition POST request
 
+app.post("/petition", (req, res) => {
+    const { userId } = req.session;
+    const { signature } = req.body;
+    addSigner(userId, signature)
+        .then((results) => {
+            res.redirect("/thanks");
+        })
+        .catch((e) => {
+            console.log(e);
+            res.redirect("/petition");
+        });
+});
+
+
+function thanksRoute(req, res) {
     // This code is broken out from the /thanks route because it's also needed
     // for the root and petition routes if the user has already signed
-
     console.log("Second Thanks route");
     const id = req.cookies.signerId;
     console.log("Identitz is " + id);
@@ -121,6 +132,11 @@ function thanksRoute(req, res) {
         res.send(`<h1>Oooops. Something went wrong. Try and try again.</h1>`);
     });
 }
+
+//GET route for signatures
+app.get("/thanks", (req, res)=>{
+    thanksRoute(req, res);
+});
 
 //petition GET request
 app.get("/petition", (req, res) => {
@@ -171,11 +187,19 @@ app.get("/petitioners", (req, res)=>{
     });
 });
 
-//Get route for signatures
-app.get("/thanks", (req, res)=>{
-    thanksRoute(req, res);
-});
 
+
+//petition GET request, reading cookie
+//app.get("/", (req,res)=> {
+//    console.log(req.cookies);
+//    if(req.cookies.signed != "true")
+//    {
+//        res.render("petition", {});
+//    }
+//    else {
+//        thanksRoute(req,res);
+//    }
+//});
 
 //register
 //app.post("/register", (req,res)=>{

@@ -1,6 +1,8 @@
 //modules
 const spicedPg = require("spiced-pg");
-const { dbUser, dbPass } = require("./secrets.json");
+var { dbUser, dbPass } = require("./secrets.json");
+
+
 
 //heroku setup
 let db;

@@ -5,7 +5,7 @@ CREATE TABLE signatures (
     firstname VARCHAR(50) NOT NULL CHECK (firstname != ''),
     lastname VARCHAR(50) NOT NULL CHECK (lastname != ''),
     sig TEXT NOT NULL CHECK (sig != ''),
-    created_at TIMESTAMP DEFAULT(CURRENT_TIMESTAMP)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
