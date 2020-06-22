@@ -3,8 +3,8 @@
     <form method="POST" action="/profile">
         <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!-- for csrf protection --}}
         <input type="number" name="age" placeholder="age">
-        <input type="text" name="city" placeholder="city">
-        <input type="text" name="webpage" placeholder="webpage">
-        <button type="submit" value="Save">Submit info</button>
+        <input id="city" type="text" name="city" placeholder="city">
+        <input id="webpage" type="text" name="webpage" placeholder="webpage">
+        <button id="profile-button" type="submit" value="Save">Submit info</button>
     </form>
 </div>

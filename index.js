@@ -7,7 +7,9 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners, getMyData, newUser, insertSignature, getHashedPass } = require("./db.js");
+const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature } = require("./db.js");
+const { decodeBase64 } = require('bcryptjs');
+const { permittedCrossDomainPolicies } = require('helmet');
 
 
 //handlebars setup
@@ -57,7 +59,7 @@ app.post("/registration", (req, res)=>{
     //check for matching passwords
     if(req.body.password1 != req.body.password2) {
         const passwordError = "Check that your passwords match!";
-        res.render("registration", { passwordError}); //after inputing all the data, it renders the same form with /petition in URL???
+        res.render("registration", { passwordError});
     } else {
         hash(req.body.password1).then(hashedPassword => {
             return newUser(req.body.firstname, req.body.lastname, req.body.email, hashedPassword);
@@ -85,22 +87,47 @@ app.get("/login", (req, res)=>{
 //login POST request
 
 app.post("/login", (req, res)=>{
-
+    let pass = req.body.password;
+    let email = req.body.email;
+    getHashedPass(email).then((result)=>{
+        if((result.rows != undefined) && (result.rows.length>0)) {
+            compare(pass, result.rows[0].password_hash).then((match)=>{
+                if(match) {
+                    let userid = result.rows[0].user_id;
+                    res.cookie("user_id", userid);
+                    getUserPetitionSignatureImage(req.session.user_id).then((result)=>{
+                        const isSigned = (result.rows.length > 0);
+                        res.redirect(isSigned? "/thanks" : "/petition");                         
+                    }).catch((error)=>{
+                        console.log("Error in redirect:", error);
+                    });
+                }
+            }).catch((error)=>{
+                console.log("The inner error:", error);
+            });
+        }
+    }).catch((error)=>{
+        console.log("The outer most error:", error);
+    });
 });
 
 //petition GET request
 
 app.get("/petition", (req, res) => {
-    const { userId } = req.session;
-    if (!userId) {
+    const userId = req.cookies.user_id;
+    console.log(req.cookies);
+    console.log("userId is " + userId);
+    if (userId == undefined || userId == null || userId.length == 0) {
+        console.log ("rendering Registration");
         res.render("registration", {});
     } else {
+        console.log ("rendering Petition");
         res.render("petition", {});
     }
 });
 
 //petition POST request
-
+/*
 app.post("/petition", (req, res) => {
     const { userId } = req.session;
     const { signature } = req.body;
@@ -112,7 +139,7 @@ app.post("/petition", (req, res) => {
             console.log(e);
             res.redirect("/petition");
         });
-});
+});*/
 
 
 function thanksRoute(req, res) {
@@ -121,14 +148,14 @@ function thanksRoute(req, res) {
     console.log("Second Thanks route");
     const id = req.cookies.signerId;
     console.log("Identitz is " + id);
-    getMyData(id).then((results)=> {
+    getMySignature(id).then((results)=> {
         console.log (results.rows);
         const firstname = results.rows[0].firstname;
         const sig = results.rows[0].sig;
         res.render("thanks", {firstname, sig});
         console.log(sig);
     }).catch((error)=>{
-        console.log("Erroooor:", error);
+        console.log("ErroooorThanks:", error);
         res.send(`<h1>Oooops. Something went wrong. Try and try again.</h1>`);
     });
 }
@@ -156,9 +183,24 @@ app.post("/petition", (req, res) => {
         
         addSigner(req.body.firstname, req.body.lastname, req.body.sig)
             .then((result) => {
+                const signatureId = result.rows[0].signature_id;
+                // Is the user authenticated? If so, we also need to
+                // set the user_id column of this signature record,
+                // which initializes and defaults to null otherwise.
+
+                const userId = req.cookies.user_id;
+                if (userId != undefined && userId != null && userId.length > 0)
+                {
+                    // userId seems valid, so we need to update the signatures
+                    // record with the currently authenticated user identity
+
+                    addUserIdToSignature (signatureId, userId);
+                }
+
+
                 //setting cookie
                 res.cookie("signed", "true", { });
-                res.cookie("signerId", result.rows[0].signature_id);
+                res.cookie("signerId", signatureId);
                 res.redirect("/thanks");
             }).catch((error) => {
                 res.render("petition", { error: true });

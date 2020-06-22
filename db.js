@@ -23,7 +23,11 @@ exports.addSigner = (firstname, lastname, sig) => {
     );
 };
 
-exports.getMyData = (signature_id) => {
+exports.addUserIdToSignature = (signature_id, user_id) => {
+    return db.query (`UPDATE signatures SET user_id=$2 WHERE signature_id=$1`, [signature_id, user_id]);
+};
+
+exports.getMySignature = (signature_id) => {
     return db.query(
         `SELECT firstname, lastname, sig FROM signatures
         WHERE signature_id = $1`,
@@ -53,8 +57,21 @@ exports.insertSignature = function (signature_id, sig) {
 };
 
 exports.getHashedPass = function (email) {
-    return db.query(`SELECT password, user_id FROM users WHERE email = $1`, [email]);
+    return db.query(`SELECT password_hash, user_id FROM users WHERE email = $1`, [email]);
 };
 
+exports.getUserPetitionSignatureImage = function (user_id) {
+    return db.query(
+        `SELECT sig FROM signatures WHERE user_id = $1`, [user_id]
+    );
+
+};
+
+exports.getUserData = function (user_id) {
+    return db.query(`SELECT * FROM users WHERE user_id = $1`, [user_id]);
+};
+
+
+ 
 
 

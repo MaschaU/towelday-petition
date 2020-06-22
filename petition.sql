@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS signatures;
 
 CREATE TABLE signatures (
     signature_id SERIAL PRIMARY KEY,
+    user_id INTEGER NULL, -- may be null if the user is not registered
     firstname VARCHAR(50) NOT NULL CHECK (firstname != ''),
     lastname VARCHAR(50) NOT NULL CHECK (lastname != ''),
     sig TEXT NOT NULL CHECK (sig != ''),

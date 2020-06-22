@@ -16,7 +16,7 @@
     <div class="ticker"></div>
 </div>
 <h1>Make 25th May a national holiday!</h1>
-<form method="POST" action="/registration" id="login-form">
+<form method="POST" action="/login" id="login-form">
     <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!csrf protection--}}
     <div class="error">{{error}}</div>
     <input type="text" name="email" class="info-reg" placeholder="Email" required>
