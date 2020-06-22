@@ -28,6 +28,7 @@ app.use(cookieSession({
     secret: `I'm always angry`,
     maxAge: 1000 * 60 *60 *24 * 14
 }));
+
 app.use(express.urlencoded({extended:false}));
 app.use(helmet());
 app.use(csurf());
@@ -195,5 +196,5 @@ app.get("/thanks", (req, res)=>{
 
 
 
-
-app.listen(8080, () => console.log("server alive and kickin!"));
+//heroku and local port
+app.listen(process.env.PORT || 8080, () => console.log("server alive and kickin!"));
