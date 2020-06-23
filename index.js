@@ -126,22 +126,6 @@ app.get("/petition", (req, res) => {
     }
 });
 
-//petition POST request
-/*
-app.post("/petition", (req, res) => {
-    const { userId } = req.session;
-    const { signature } = req.body;
-    addSigner(userId, signature)
-        .then((results) => {
-            res.redirect("/thanks");
-        })
-        .catch((e) => {
-            console.log(e);
-            res.redirect("/petition");
-        });
-});*/
-
-
 function thanksRoute(req, res) {
     // This code is broken out from the /thanks route because it's also needed
     // for the root and petition routes if the user has already signed
@@ -255,7 +239,20 @@ app.get("/petitioners", (req, res)=>{
 //set up cookies so I know which users have signed
 //render the rest of the pages to people who signed
 //
-
+//petition POST request
+/*
+app.post("/petition", (req, res) => {
+    const { userId } = req.session;
+    const { signature } = req.body;
+    addSigner(userId, signature)
+        .then((results) => {
+            res.redirect("/thanks");
+        })
+        .catch((e) => {
+            console.log(e);
+            res.redirect("/petition");
+        });
+});*/
 
 
 

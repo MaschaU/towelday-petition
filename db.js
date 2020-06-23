@@ -1,6 +1,5 @@
 //modules
 const spicedPg = require("spiced-pg");
-var { dbUser, dbPass } = require("./secrets.json");
 
 
 
@@ -70,6 +69,7 @@ exports.getUserPetitionSignatureImage = function (user_id) {
 exports.getUserData = function (user_id) {
     return db.query(`SELECT * FROM users WHERE user_id = $1`, [user_id]);
 };
+
 
 
  
