@@ -124,6 +124,23 @@ button {
   margin-left: 0;
 }
 
+#about {
+  width: 150px;
+  height: 69px;
+  background-color: black;
+  border-radius: 12px;
+  position: relative;
+}
+
+#about-txt {
+  position: absolute;
+  color: white;
+  font-size: 22px;
+  font-family: 'Sriracha', cursive;
+  margin-top: 13px;
+  margin-left: 6px;
+}
+
 #thanks {
   width: 100%;
   height: 100%;
