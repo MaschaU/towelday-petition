@@ -1,16 +1,14 @@
-DROP TABLE IF EXISTS signatures;
+DROP TABLE IF EXISTS signatures CASCADE;
 
 CREATE TABLE signatures (
     signature_id SERIAL PRIMARY KEY,
-    user_id INTEGER NULL, -- may be null if the user is not registered
-    firstname VARCHAR(50) NOT NULL CHECK (firstname != ''),
-    lastname VARCHAR(50) NOT NULL CHECK (lastname != ''),
+    user_id INTEGER NOT NULL,
     sig TEXT NOT NULL CHECK (sig != ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
     user_id SERIAL primary key,
@@ -22,3 +20,13 @@ CREATE TABLE users (
 );
 
 SELECT * FROM signatures;
+DROP TABLE IF EXISTS user_profiles;
+DROP TABLE IF EXISTS profiles CASCADE;
+
+CREATE TABLE profiles(
+    profile_id SERIAL PRIMARY KEY,
+    age INT,
+    city VARCHAR(255),
+    url VARCHAR(255),
+    user_id INT NOT NULL UNIQUE REFERENCES users(user_id)
+);

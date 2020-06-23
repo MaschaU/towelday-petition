@@ -7,7 +7,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature } = require("./db.js");
+const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature, updateUsersProfiles } = require("./db.js");
 const { decodeBase64 } = require('bcryptjs');
 const { permittedCrossDomainPolicies } = require('helmet');
 
@@ -97,7 +97,7 @@ app.post("/login", (req, res)=>{
                     req.session.user_id = userid;
                     getUserPetitionSignatureImage(req.session.user_id).then((result)=>{
                         const isSigned = (result.rows.length > 0);
-                        res.redirect(isSigned? "/thanks" : "/petition");                         
+                        res.redirect(isSigned? "/thanks" : "/profile");                         
                     }).catch((error)=>{
                         console.log("Error in redirect:", error);
                     });
@@ -130,13 +130,13 @@ function thanksRoute(req, res) {
     // This code is broken out from the /thanks route because it's also needed
     // for the root and petition routes if the user has already signed
     console.log("Second Thanks route");
-    const id = req.session.signerId;
+    const id = req.session.user_id;
     console.log("Identitz is " + id);
     getMySignature(id).then((results)=> {
         console.log (results.rows);
-        const firstname = results.rows[0].firstname;
+        //const firstname = results.rows[0].firstname;
         const sig = results.rows[0].sig;
-        res.render("thanks", {firstname, sig});
+        res.render("thanks", { sig});
         console.log(sig);
     }).catch((error)=>{
         console.log("ErroooorThanks:", error);
@@ -165,23 +165,9 @@ app.post("/petition", (req, res) => {
     if (req.body.firstname && req.body.lastname && req.body.sig) {
         console.log("I'm inside of if statement");
         
-        addSigner(req.body.firstname, req.body.lastname, req.body.sig)
+        addSigner(req.body.sig, req.session.user_id)
             .then((result) => {
                 const signatureId = result.rows[0].signature_id;
-                // Is the user authenticated? If so, we also need to
-                // set the user_id column of this signature record,
-                // which initializes and defaults to null otherwise.
-
-                const userId = req.session.user_id;
-                if (userId != undefined && userId != null && userId.length > 0)
-                {
-                    // userId seems valid, so we need to update the signatures
-                    // record with the currently authenticated user identity
-
-                    addUserIdToSignature (signatureId, userId);
-                }
-
-
                 //setting cookie
                 req.session.signed= true;
                 req.session.signerId = signatureId;
@@ -198,11 +184,12 @@ app.post("/petition", (req, res) => {
 //GET request for /petitioners layout:
 app.get("/petitioners", (req, res)=>{
     getSigners().then((results)=>{
-        console.log(getSigners);
+        console.log(results);
         const petitioners = [];
         results.rows.forEach((r)=>{
             petitioners.push({
-                name: `${r.firstname} ${r.lastname}`
+                name: `${r.firstname} ${r.lastname}`,
+                city: `${r.city}`
             });
             console.log(petitioners);
         });
@@ -212,6 +199,32 @@ app.get("/petitioners", (req, res)=>{
        
     });
 });
+
+//profile GET request
+app.get("/profile", (req, res) => {
+    res.render("profile");
+});
+
+//profile POST request
+app.post(("/profile"), (req, res)=>{
+    if (req.session.user_id) {
+        console.log("I'm getting this:", req.session.user_id);
+        if (!req.body.webpage.startsWith("https://") || !req.body.webpage.startsWith("http://")) {
+            console.log("Bad url!!!");
+            req.body.url = `https://${req.body.url}`;
+        }
+        updateUsersProfiles(req.body.age, req.body.city, req.body.webpage, req.session.user_id).then((result)=>{
+            console.log("Inserted bloody data!!!");
+            res.redirect("/petition");
+            res.end();
+        }).catch((error)=>{
+            console.log("There's an error in insert!", error);
+        });
+    }
+});
+
+
+
 
 
 

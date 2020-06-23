@@ -15,10 +15,10 @@ if (process.env.DATABASE_URL) {
 
 
 //signature table
-exports.addSigner = (firstname, lastname, sig) => {
+exports.addSigner = (sig, user_id) => {
     return db.query(
-        `INSERT INTO signatures (firstname, lastname, sig) VALUES ($1, $2, $3) RETURNING signature_id`,
-        [firstname, lastname, sig]
+        `INSERT INTO signatures (sig, user_id) VALUES ($1, $2) RETURNING signature_id`,
+        [sig, user_id]
     );
 };
 
@@ -26,16 +26,16 @@ exports.addUserIdToSignature = (signature_id, user_id) => {
     return db.query (`UPDATE signatures SET user_id=$2 WHERE signature_id=$1`, [signature_id, user_id]);
 };
 
-exports.getMySignature = (signature_id) => {
+exports.getMySignature = (user_id) => {
     return db.query(
-        `SELECT firstname, lastname, sig FROM signatures
-        WHERE signature_id = $1`,
-        [signature_id]
+        `SELECT sig FROM signatures
+        WHERE user_id = $1`,
+        [user_id]
     );
 };
 
 exports.getSigners = () => {
-    return db.query(`SELECT firstname, lastname FROM signatures`);
+    return db.query(`SELECT profiles.city, users.firstname, users.lastname FROM signatures JOIN users ON users.user_id=signatures.user_id JOIN profiles on profiles.user_id=signatures.user_id`);
 };
 
 //users table
@@ -70,6 +70,20 @@ exports.getUserData = function (user_id) {
     return db.query(`SELECT * FROM users WHERE user_id = $1`, [user_id]);
 };
 
+//profile table
+
+exports.updateUsersProfiles = (age, city, webpage, user_id) => {
+    return db.query(
+        `INSERT INTO profiles (age, city, url, user_id) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$1, city=$2, url=$3 WHERE profiles.user_id=$4 `, 
+        [age, city, webpage, user_id]);
+};
+
+exports.getSignersByCity = (city) => {
+    return db.query(
+        `SELECT profiles.city, users.firstname, users.lastname FROM profiles JOIN users ON profiles.user_id = users.user_id WHERE LOWER(city) = LOWER($1)`,
+        [city]
+    );
+};
 
 
  
