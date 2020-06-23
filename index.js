@@ -94,7 +94,7 @@ app.post("/login", (req, res)=>{
             compare(pass, result.rows[0].password_hash).then((match)=>{
                 if(match) {
                     let userid = result.rows[0].user_id;
-                    res.cookie("user_id", userid);
+                    req.session.user_id = userid;
                     getUserPetitionSignatureImage(req.session.user_id).then((result)=>{
                         const isSigned = (result.rows.length > 0);
                         res.redirect(isSigned? "/thanks" : "/petition");                         
@@ -114,8 +114,8 @@ app.post("/login", (req, res)=>{
 //petition GET request
 
 app.get("/petition", (req, res) => {
-    const userId = req.cookies.user_id;
-    console.log(req.cookies);
+    const userId = req.session.user_id;
+    console.log(req.session);
     console.log("userId is " + userId);
     if (userId == undefined || userId == null || userId.length == 0) {
         console.log ("rendering Registration");
@@ -146,7 +146,7 @@ function thanksRoute(req, res) {
     // This code is broken out from the /thanks route because it's also needed
     // for the root and petition routes if the user has already signed
     console.log("Second Thanks route");
-    const id = req.cookies.signerId;
+    const id = req.session.signerId;
     console.log("Identitz is " + id);
     getMySignature(id).then((results)=> {
         console.log (results.rows);
@@ -167,7 +167,7 @@ app.get("/thanks", (req, res)=>{
 
 //petition GET request
 app.get("/petition", (req, res) => {
-    if(req.cookies.signed != "true")
+    if(req.session.signed != "true")
     {
         res.render("petition", {});
     }
@@ -188,7 +188,7 @@ app.post("/petition", (req, res) => {
                 // set the user_id column of this signature record,
                 // which initializes and defaults to null otherwise.
 
-                const userId = req.cookies.user_id;
+                const userId = req.session.user_id;
                 if (userId != undefined && userId != null && userId.length > 0)
                 {
                     // userId seems valid, so we need to update the signatures
@@ -199,8 +199,8 @@ app.post("/petition", (req, res) => {
 
 
                 //setting cookie
-                res.cookie("signed", "true", { });
-                res.cookie("signerId", signatureId);
+                req.session.signed= true;
+                req.session.signerId = signatureId;
                 res.redirect("/thanks");
             }).catch((error) => {
                 res.render("petition", { error: true });
