@@ -2,7 +2,7 @@
 <div class="profile-container">
     <form method="POST" action="/profile">
         <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!-- for csrf protection --}}
-        <input class="profile-info" type="number" name="age" placeholder="age" value="{{profileData.age}}">
+        <input class="profile-info" type="text" name="age" placeholder="age" value="{{profileData.age}}">
         <input class="profile-info" type="text" name="city" placeholder="city" value="{{profileData.city}}">
         <input class="profile-info" type="text" name="webpage" placeholder="webpage" value="{{profileData.url}}">
         <button id="profile-button" type="submit" value="Save">Submit info</button>

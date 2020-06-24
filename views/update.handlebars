@@ -1,0 +1,15 @@
+<h1>Change the desired fields and we'll update our data bases accordingly!</h1>
+<div id="update-profile">
+    {{if error}}
+        <h3>Ooooops, something's wrong! Let's try this again!</h3>
+        <form method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input id="firstname" type="text" name="firstname" placeholder="First Name" value="{{firstname}}">
+            <input id="lastname" type="text" name="lastname" placeholder="Last Name" value="{{lastname}}">
+            <input id="email" type="text" name="email" placeholder="email" value="{{email}}">
+            <input id="age" type="text" name="age" placeholder="Age" value="{{age}}">
+            <input id="city" type="text" name="city" placeholder="City" value="{{city}}">
+            <input id="webpage" type="text" name="webpage" placeholder="webpage" value="{{url}}">
+            <button id="update-button">Update</button>
+        </form>
+</div>

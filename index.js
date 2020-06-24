@@ -246,6 +246,14 @@ app.get("/delete", (req, res)=>{
     });
 });
 
+//logout GET request
+
+app.get("/logout", (req, res)=>{
+    if(req.session.user_id) {
+        req.session.user_id = null;
+        res.redirect("/registration");
+    }
+});
 
 
 
