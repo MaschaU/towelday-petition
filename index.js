@@ -250,6 +250,8 @@ app.get("/delete", (req, res)=>{
 
 
 
+
+
 //petition GET request, reading cookie
 //app.get("/", (req,res)=> {
 //    console.log(req.cookies);
