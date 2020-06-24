@@ -5,7 +5,7 @@
 body {
   margin: 0 auto;
   background-color: black;
-  background-image: url("https://i.imgur.com/tOPp4Kb.jpg");
+  background-image: url("https://i.imgur.com/4fJoH3p.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
@@ -173,6 +173,14 @@ button {
   text-shadow: 0 5px 10px black;
 }
 
+#petitioners-link {
+  font-size: 24px;
+}
+
+#a-delete {
+  font-size: 22px;
+}
+
 #sig-pic {
   margin-top: 442px;
   height: 300px;
@@ -241,6 +249,7 @@ form {
 
 p, #logout{
   margin: 5px;
+  margin-left: 5px;
   font-family: 'Sriracha', cursive;
   font-size: 22px;
   color: white;
