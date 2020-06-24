@@ -7,7 +7,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature, updateUsersProfiles, getProfileFromUserId } = require("./db.js");
+const { addSigner, getSigners, getUserData, newUser, insertSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature, updateUsersProfiles, getProfileFromUserId, deleteSignature } = require("./db.js");
 const { decodeBase64 } = require('bcryptjs');
 const { permittedCrossDomainPolicies } = require('helmet');
 
@@ -235,6 +235,16 @@ app.post(("/profile"), (req, res)=>{
     }
 });
 
+//delete GET route
+app.get("/delete", (req, res)=>{
+    deleteSignature(req.session.user_id).then((results)=>{
+        req.session.signed = "false";
+        res.redirect("/petition");
+        res.end();
+    }).catch((error)=>{
+        console.log("Error in deleting sig:", error);
+    });
+});
 
 
 

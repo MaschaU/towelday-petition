@@ -94,6 +94,14 @@ exports.getProfileFromUserId = (user_id) => {
     );
 };
 
+//deleting a signature
+
+exports.deleteSignature = (user_id) => {
+    return db.query(
+        `DELETE FROM signatures WHERE user_id=$1`,
+        [user_id]
+    );
+};
  
 
 

@@ -174,7 +174,8 @@ button {
 }
 
 #sig-pic {
-  margin-top: 500px;
+  margin-top: 442px;
+  height: 300px;
 }
 
 #sigPic-tag {
@@ -183,7 +184,7 @@ button {
   color: white;
   text-align: center;
   text-shadow: 0 5px 10px black;
-  margin-top: 30px;
+  margin-top: 70px;
 }
 
 .error {
@@ -227,6 +228,25 @@ form {
 #update {
   font-size: 28px;
   margin-left: 5px;
+}
+
+#delete-link {
+  font-family: 'Sriracha', cursive;
+  font-size: 18px;
+  color: white;
+  text-shadow: 0 5px 10px black;
+  text-align: center;
+  margin-top: -30px;
+}
+
+p {
+  margin: 5px;
+  font-family: 'Sriracha', cursive;
+  font-size: 22px;
+  color: white;
+  text-shadow: 0 5px 10px black;
+
+
 }
 
 @keyframes ticker {
@@ -327,6 +347,18 @@ span:hover + ul {
     #ticker-container {
     display: none;
     }
+
+    body {
+      margin: 0 auto;
+      background-color: black;
+      background-image: url("https://i.imgur.com/QtMrHzP.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-position: center;
+    }
     
     h1 {
       font-size: 32px;
@@ -350,7 +382,9 @@ span:hover + ul {
     }
 
     #sig-pic {
-      margin-top: 330px;
+      margin-top: 276px;
+      height: 200px;
+      width: 100%;
     }
 
     #sigPic-tag {
@@ -361,7 +395,12 @@ span:hover + ul {
     .petitioners-list {
       font-size: 15px;
     }
-    
+
+    .petitioners-thanks {
+      height: 145px;
+      width: 340px;
+    }
+
 
   }
 
