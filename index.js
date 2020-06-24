@@ -7,7 +7,7 @@ const cookieSession = require("cookie-session"); //protecting against changing c
 const helmet = require("helmet"); //for securing Express by setting various HTTP headers
 const csurf = require('csurf'); //protecting against CSRF
 const {hash, compare} = require("./bc.js");
-const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature, updateUsersProfiles } = require("./db.js");
+const { addSigner, getSigners, getUserData, newUser, insertSignature, addUserIdToSignature, getHashedPass, getPassword, getUserPetitionSignatureImage, getMySignature, updateUsersProfiles, getProfileFromUserId } = require("./db.js");
 const { decodeBase64 } = require('bcryptjs');
 const { permittedCrossDomainPolicies } = require('helmet');
 
@@ -202,7 +202,19 @@ app.get("/petitioners", (req, res)=>{
 
 //profile GET request
 app.get("/profile", (req, res) => {
-    res.render("profile");
+    getProfileFromUserId(req.session.user_id).then((results)=>{
+        var profileData = {};
+        if (results.rows.length>0) {
+            profileData.city = results.rows[0].city;
+            profileData.age = results.rows[0].age;
+            profileData.webpage = results.rows[0].url;
+        }
+        res.render("./profile", {profileData});
+    }).catch((error)=>{
+        console.log("Error in profile GET:", error);
+    });
+    
+
 });
 
 //profile POST request

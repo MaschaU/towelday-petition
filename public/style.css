@@ -121,7 +121,7 @@ button {
   font-size: 25px;
   font-family: 'Sriracha', cursive;
   margin-top: 34px;
-  margin-left: 0;
+  margin-left: 5px;
 }
 
 #about {
@@ -222,6 +222,11 @@ form {
 #reg-link {
   margin-left: 5px;
   font-size: 28px;
+}
+
+#update {
+  font-size: 28px;
+  margin-left: 5px;
 }
 
 @keyframes ticker {
@@ -356,6 +361,7 @@ span:hover + ul {
     .petitioners-list {
       font-size: 15px;
     }
+    
 
   }
 

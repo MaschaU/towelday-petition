@@ -85,6 +85,14 @@ exports.getSignersByCity = (city) => {
     );
 };
 
+//getting a profile from user id
+
+exports.getProfileFromUserId = (user_id) => {
+    return db.query(
+        `SELECT * FROM profiles WHERE user_id=$1`,
+        [user_id]
+    );
+};
 
  
 
