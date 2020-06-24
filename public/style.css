@@ -125,20 +125,32 @@ button {
 }
 
 #about {
-  width: 150px;
-  height: 69px;
-  background-color: black;
-  border-radius: 12px;
+  color: #fff;
+  height: 58px;
+  width: 200px;
   position: relative;
+  margin: 5px;
+  text-align: center;
+  border-radius: 4px;
+  background: #333;
+  font: 25px Raleway, 'Sriracha', cursive ;
+  vertical-align: -webkit-baseline-middle;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
 
 #about-txt {
   position: absolute;
   color: white;
-  font-size: 22px;
+  font-size: 28px;
   font-family: 'Sriracha', cursive;
-  margin-top: 13px;
-  margin-left: 6px;
+  margin-top: 0;
+  margin-left: 0;
 }
 
 #thanks {
@@ -185,6 +197,7 @@ button {
 form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 85px;
 }
 
 .info-reg, .profile-info {
@@ -208,6 +221,7 @@ form {
 
 #reg-link {
   margin-left: 5px;
+  font-size: 28px;
 }
 
 @keyframes ticker {
@@ -265,24 +279,7 @@ form {
   margin-top: 20px;
 }
   
-span {
-  color: #fff;
-  height: 58px;
-  width: 200px;
-  position: relative;
-  margin: 5px;
-  text-align: center;
-  border-radius: 4px;
-  background: #333;
-  font: 25px Raleway, 'Sriracha', cursive ;
-  vertical-align: -webkit-baseline-middle;
-  -webkit-font-smoothing: antialiased;
-  -webkit-user-select: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
   
 ul {
   float: left;
@@ -320,6 +317,48 @@ ul:hover {
 span:hover + ul {
   animation-play-state: paused;
 }
+
+@media only screen and (max-width: 600px) {
+    #ticker-container {
+    display: none;
+    }
+    
+    h1 {
+      font-size: 32px;
+    }
+
+    #reg-link {
+      font-size: 23px;
+    }
+
+    form {
+      margin-bottom: 5px;
+      margin-top: -25px;
+    }
+
+    #userInput {
+      margin-top: 35px;
+    }
+
+    #user-sig, #canva-div, #userSig {
+      width: 330px;
+    }
+
+    #sig-pic {
+      margin-top: 330px;
+    }
+
+    #sigPic-tag {
+      margin-top: -75px;
+      font-size: 21px;
+    }
+
+    .petitioners-list {
+      font-size: 15px;
+    }
+
+  }
+
   
 
 
