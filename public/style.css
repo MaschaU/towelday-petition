@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: 'Sriracha', cursive;
 }
 
 body {
@@ -18,17 +19,14 @@ body {
   width: 100%;
 }
 
-
 h1 {
   text-align: center;
-  font-family: 'Sriracha', cursive;
   color: white;
   text-shadow: 0 5px 10px black;
   font-size: 65px;
 }
 
 a {
-  font-family: 'Sriracha', cursive;
   font-size: 18px;
   color: white;
   text-shadow: 0 5px 10px black;
@@ -54,7 +52,7 @@ a {
 #firstName, #lastName, #signature {
   height: 50px;
   width: 200px;
-  border: 3px solid tomato;
+  border: 3px solid #b52e19;
   padding: 5px;
 }
 
@@ -70,7 +68,7 @@ a {
 canvas {
   height: 50px;
   width: 400px;
-  border: 3px solid tomato;
+  border: 3px solid #b52e19;
   color: white;
 
 }
@@ -93,7 +91,6 @@ canvas {
 #description-sig {
   position: absolute;
   margin-top: -40px;
-  font-family: 'Sriracha', cursive;
   color: white;
   font-size: 25px;
 }
@@ -119,7 +116,6 @@ button {
   color: black;
   border: 2px solid black;
   font-size: 25px;
-  font-family: 'Sriracha', cursive;
   margin-top: 34px;
   margin-left: 5px;
 }
@@ -142,13 +138,10 @@ button {
   justify-content: center;
 }
 
-
-
 #about-txt {
   position: absolute;
   color: white;
   font-size: 28px;
-  font-family: 'Sriracha', cursive;
   margin-top: 0;
   margin-left: 0;
 }
@@ -160,7 +153,6 @@ button {
 
 .petitioners-list {
   font-size: 25px;
-  font-family: 'Sriracha', cursive;
   color: white;
   text-align: center;
   text-shadow: 0 5px 10px black;
@@ -168,7 +160,6 @@ button {
 
 #petitioners-thanks {
   font-size: 50px;
-  font-family: 'Sriracha', cursive;
   color: white;
   text-shadow: 0 5px 10px black;
 }
@@ -188,7 +179,6 @@ button {
 
 #sigPic-tag {
   font-size: 25px;
-  font-family: 'Sriracha', cursive;
   color: white;
   text-align: center;
   text-shadow: 0 5px 10px black;
@@ -197,7 +187,6 @@ button {
 
 .error {
   font-size: 30px;
-  font-family: 'Sriracha', cursive;
   color: white;
   text-align: center;
   margin-top: 25px;
@@ -218,14 +207,12 @@ form {
   border-right: hidden;
   background: transparent;
   font-size: 25px;
-  font-family: 'Sriracha', cursive;
   color: white;
   margin-left: 5px;
 }
 
 #regbutton, #reg-link, #reg-error, #login-form, #login-button {
   margin-left: 5px;
-
 }
 
 #reg-link {
@@ -239,7 +226,6 @@ form {
 }
 
 #delete-link {
-  font-family: 'Sriracha', cursive;
   font-size: 18px;
   color: white;
   text-shadow: 0 5px 10px black;
@@ -250,7 +236,6 @@ form {
 p, #logout{
   margin: 5px;
   margin-left: 5px;
-  font-family: 'Sriracha', cursive;
   font-size: 22px;
   color: white;
   text-shadow: 0 5px 10px black;
@@ -311,8 +296,6 @@ p, #logout{
   margin-top: 20px;
 }
   
-
-  
 ul {
   float: left;
   padding-left: 25px;
@@ -325,7 +308,6 @@ ul li a {
   color: white;
   text-decoration: none;
   font: 28px;
-  font-family: 'Sriracha', cursive;
   vertical-align: -webkit-baseline-middle;
   vertical-align: -moz-middle-with-baseline;
   -webkit-font-smoothing: antialiased;

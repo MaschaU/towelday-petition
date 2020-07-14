@@ -1,4 +1,6 @@
-
+{{#if error}}
+  <div class="error">Something went wrong! Try again!</div>
+{{/if}}
 <h1>Make 25th May a national holiday!</h1>
 <form method="POST" action="/login" id="login-form">
     <input type="hidden" name="_csrf" value="{{csrfToken}}"> {{!csrf protection--}}
@@ -7,4 +9,3 @@
     <input type="password" name="password" class="info-reg" placeholder="Password" required>
     <button class="button-login" id="login-button">Log in!</button>
 </form>
-</div>

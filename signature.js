@@ -35,8 +35,9 @@
     paintCanvas.addEventListener( "mouseup", stopDrawing);
     paintCanvas.addEventListener( "mouseout", stopDrawing );
     
-    /*paintCanvas.addEventListener("touchstart", startDrawing);
+    /*the order of events:
+    paintCanvas.addEventListener("touchstart", startDrawing);
     paintCanvas.addEventListener("touchmove", drawLine);
     paintCanvas.addEventListener("touchend", stopDrawing);
     paintCanvas.addEventListener("touchcancel", stopDrawing);*/
-    }());
+}());

@@ -74,7 +74,6 @@ app.post("/registration", (req, res)=>{
             console.log("Erroooor:", error);
             res.redirect("/registration");
             res.render("./registration", { error: "Oooops! Try again  but this time, give us all your data!" });
-            
         });
     }
 });
@@ -85,7 +84,6 @@ app.get("/login", (req, res)=>{
 });
 
 //login POST request
-
 app.post("/login", (req, res)=>{
     let pass = req.body.password;
     let email = req.body.email;
@@ -107,12 +105,12 @@ app.post("/login", (req, res)=>{
             });
         }
     }).catch((error)=>{
-        console.log("The outer most error:", error);
+        res.redirect("/login");
+        res.render("/login", {error: "Ooooops"});
     });
 });
 
 //petition GET request
-
 app.get("/petition", (req, res) => {
     const userId = req.session.user_id;
     console.log(req.session);
@@ -131,7 +129,7 @@ function thanksRoute(req, res) {
     // for the root and petition routes if the user has already signed
     console.log("Second Thanks route");
     const id = req.session.user_id;
-    console.log("Identitz is " + id);
+    console.log("Identity is " + id);
     getMySignature(id).then((results)=> {
         console.log (results.rows);
         //const firstname = results.rows[0].firstname;
@@ -179,7 +177,6 @@ app.post("/petition", (req, res) => {
         res.render("petition", { error: true });
     }
 });
-
 
 //GET request for /petitioners layout:
 app.get("/petitioners", (req, res)=>{
@@ -247,7 +244,6 @@ app.get("/delete", (req, res)=>{
 });
 
 //logout GET request
-
 app.get("/logout", (req, res)=>{
     if(req.session.user_id) {
         req.session.user_id = null;
