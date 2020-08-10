@@ -13,7 +13,7 @@ The project requirement was to create an online petition that visitors can sign 
 
 <strong>Tech stack</strong>
 
-<p>Javascript, Express Handlebars, CSS, Node.js/ Express, PostgreSQL, Heroku</p>
+<p>Javascript, Express Handlebars, CSS, Node.js with Express, PostgreSQL, Heroku</p>
 
 <strong>Features</strong>
 <ul>
@@ -28,7 +28,7 @@ The project requirement was to create an online petition that visitors can sign 
 <strong>Learning objectives</strong>
 <ul>
 <li>Life cycle of dynamic web pages</li>
-<li>Cookies/ cookie-sessions</li>
+<li>Cookies and cookie-sessions</li>
 <li>Vulnerabilities and ways to prevent them (csurf and helmet middleware)</li>
 <li>Authentication processes (hashing, bcrypt)</li>
 <li>Deployment (Heroku)</li>
