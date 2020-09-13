@@ -5,7 +5,7 @@ The project requirement was to create an online petition that visitors can sign 
 
 <strong>Preview</strong>
 <br></br>
-<img width="700" height="400" src="https://media.giphy.com/media/h5Rf6YCRANoBLB1d3y/giphy.gif"/>
+<img width="700" height="400" src="https://i.imgur.com/VTuJbvQ.mp4"/>
 
 <strong>Demo</strong>
 <br></br>
